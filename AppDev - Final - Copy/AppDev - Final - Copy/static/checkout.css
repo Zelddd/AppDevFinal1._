@@ -1,0 +1,82 @@
+html{
+  margin: 0;
+  padding: 0;
+  box-sizing: border box;
+  font-family: sans-serif, Arial
+}
+
+body{
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+}
+
+.Cart-Container{
+ width: 70%;
+ height: 85%;
+ background-color: #ffffff;
+ border-radius: 20px;
+ box-shadow: 0px 25px 40px #1687d933;
+}
+
+.flex-container{
+    display:flex;
+}
+
+.flex-child{
+    flex:1;
+}
+
+.field{
+  background:#f8f8f8;
+  max-width:550px;
+  margin: 80px auto;
+  height: auto;
+  padding: 35px;
+  padding-top: 70px;
+  border-radius: 5px;
+  position: relative;
+  text-align:left;
+  margin-right:10px;
+}
+
+.payment{
+  background:#f8f8f8;
+  max-width:520px;
+  margin: 80px auto;
+  height: auto;
+  padding: 35px;
+  padding-top: 70px;
+  border-radius: 5px;
+  position: relative;
+  text-align:right;
+   box-shadow: 0px 25px 40px #1687d933;
+}
+
+
+legend{
+  text-align:center;
+  letter-spacing: 2px;
+  margin-bottom: 40px;
+  color: #0d3c64;
+}
+
+.field .label{
+  display:block;
+  color: #555555;
+  margin-bottom: 6px;
+}
+
+.field .input{
+  padding: 13px 0 10px 0px;
+  width:100%;
+  text-align: center;
+  border-radius: 5px;
+  letter-spacing: 1px;
+  word-wrap: 3px;
+  outline: none;
+  font-size: 16px;
+  color: #555555;
+  border: 2px solid #dadada;
+  border-radius: 7px;
+}

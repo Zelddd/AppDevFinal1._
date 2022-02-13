@@ -1,0 +1,197 @@
+{% extends 'base.html' %}
+{% block title %} Staff Catalogue {% endblock title %}
+
+{% block navbar %}
+<nav class="navbar navbar-expand-lg navbar-light shadow bg-white">
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbar1">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item active">
+                    <a class="nav-link lead fs-5 text-dark" href="/users">User List</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link lead fs-5 text-dark" href="/staffcatalogue">Staff Catalogue</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link lead fs-5 text-dark" href="/">Order List</a>
+                </li>
+            </ul>
+            <div class="d-flex align-items-center">
+                {% if logged %}
+                <a class="btn btn-link text-decoration-none text-dark" href="/profile/{{ name }}">Logged in as {{ name }}</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    </div>
+</nav>
+{% endblock navbar %}
+
+{% block content %}
+
+<div class="container-fluid text-center">
+    <h3 class="display-6 p-4">Staff Catalogue</h3>
+    <hr class="border border-primary border-1 mb-4" style="width: 5%; margin: auto;">
+    <a class="btn btn-outline-dark btn-lg m-2" href="/catalogue" role="button">View Catalogue</a>
+    <button class="btn btn-outline-dark btn-lg m-2" data-bs-toggle="collapse" data-bs-target="#form-container">Add
+        Product</button>
+</div>
+<div class="container collapse" id="form-container">
+    <form class="row g-3" method="post" enctype="multipart/form-data" name="form" novalidate>
+        {{form.hidden_tag()}}
+        <div class="col-md-6">
+            <div class="mb-3">
+                {{form.product_name.label()}}
+
+                {% if form.product_name.errors %}
+
+                {{form.product_name(class="form-control is-invalid")}}
+                {% for error in form.product_name.errors %}
+                <div class="invalid-feedback">
+                    <span>{{error}}</span>
+                </div>
+                {% endfor %}
+                {% else %}
+                {{form.product_name(class="form-control")}}
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-md-3">
+            {{form.product_price.label()}}
+            <div class="input-group mb-3">
+                <span class="input-group-text">$</span>
+                {% if form.product_price.errors %}
+
+                {{form.product_price(class="form-control is-invalid")}}
+                {% for error in form.product_price.errors %}
+                <div class="invalid-feedback">
+                    <span>{{error}}</span>
+                </div>
+                {% endfor %}
+                {% else %}
+                {{form.product_price(class="form-control")}}
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-md-3">
+            {{form.product_weight.label()}}
+            <div class="input-group mb-3">
+
+                {% if form.product_weight.errors %}
+
+                {{form.product_weight(class="form-control is-invalid")}}
+                {% for error in form.product_weight.errors %}
+                <div class="invalid-feedback">
+                    <span>{{error}}</span>
+                </div>
+                {% endfor %}
+                {% else %}
+                {{form.product_weight(class="form-control")}}
+                <span class="input-group-text">g/kg/ml</span>
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="mb-3">
+                {{form.product_details.label()}}
+
+                {% if form.product_details.errors %}
+
+                {{form.product_details(class="form-control is-invalid")}}
+                {% for error in form.product_details.errors %}
+                <div class="invalid-feedback">
+                    <span>{{error}}</span>
+                </div>
+                {% endfor %}
+                {% else %}
+                {{form.product_details(class="form-control")}}
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="mb-3">
+                {{form.product_image.label()}}
+
+                {% if form.product_image.errors %}
+
+                {{form.product_image(class="form-control is-invalid")}}
+                {% for error in form.product_image.errors %}
+                <div class="invalid-feedback">
+                    <span>{{error}}</span>
+                </div>
+                {% endfor %}
+                {% else %}
+                {{form.product_image(class="form-control")}}
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="mb-3">
+                {{form.product_category.label()}}
+
+                {% if form.product_category.errors %}
+
+                {{form.product_category(class="form-control is-invalid")}}
+                {% for error in form.product_category.errors %}
+                <div class="invalid-feedback">
+                    <span>{{error}}</span>
+                </div>
+                {% endfor %}
+                {% else %}
+                {{form.product_category(class="form-select")}}
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-md-4 text-center pt-4">
+            <button type="button" class="btn btn-danger" data-bs-toggle="collapse"
+                data-bs-target="#form-container">Cancel</button>
+            {% if form.errors %}
+            <script>
+                var form = document.getElementById("form-container")
+                form.classList.remove("collapse")
+                form.classList.add("collapse.show")
+            </script>
+            {{form.submit(class="btn btn-primary")}}
+            {% else %}
+            {{form.submit(class="btn btn-primary")}}
+            {% endif %}
+        </div>
+    </form>
+</div>
+<hr class="border border-primary border-1 my-4" style="width: 5%; margin: auto;">
+<table class="table table-striped text-center">
+    <thead>
+        <th>Product ID</th>
+        <th>Product Name</th>
+        <th>Product Price</th>
+        <th>Product Weight</th>
+        <th>Product Details</th>
+        <th>Product Category</th>
+        <th></th>
+        <th></th>
+    </thead>
+    <tbody>
+        {% for info in datalist %}
+        <tr>
+            <td>{{ info.get_id() }}</td>
+            <td>{{ info.get_name() }}</td>
+            <td>{{ info.get_price() }}</td>
+            <td>{{ info.get_weight() }}</td>
+            <td>{{ info.get_details() }}</td>
+            <td>{{ info.get_category() }}</td>
+            <td><a href="/update/{{info.get_id()}}" class="btn btn-warning" role="button">Update</a></td>
+            <td>
+                <form action="{{url_for('delete_product', id=info.get_id())}}" method="POST">
+                    <input type="submit" value="Delete" class="btn btn-danger" />
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock content %}
+
+{% block footer %} {% endblock footer %}

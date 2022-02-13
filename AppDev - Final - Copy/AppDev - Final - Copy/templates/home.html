@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Landing Page
+{% endblock title %}
+
+{% block head %}
+<style>
+    img {
+        height: 400px;
+        width: 400px;
+        object-fit: contain;
+    }
+</style>
+{% endblock head %}
+
+{% block content %}
+<div class="p-5 text-center text-light bg-dark">
+    <h1 class="mb-3">NCS Trading Supplies Pte Ltd</h1>
+    <h4 class="mb-3">Wholesale Grocer</h4>
+    <a class="btn btn-outline-light btn-lg m-2" href="#About" role="button">About Us</a>
+    <a class="btn btn-outline-light btn-lg m-2" href="/catalogue" role="button">View Catalogue</a>
+</div>
+
+<div class="container">
+    <h3 class="text-center display-6 p-4">Our Products</h3>
+    <hr class="border border-primary border-1 mb-4" style="width: 5%; margin: auto;">
+    <div class="container">
+        <div class="row gx-5 justify-content-center">
+            <div class="col-lg-3">
+                <div class="card border-0">
+                    <img src="{{url_for('static', filename='catalogue1.jpg')}}" alt="Dry Goods" class="card-img-top">
+                    <div class="card-body">
+                        <div class="d-flex flex-column align-items-center">
+                            <p class="card-text lead fs-3 mt-2">Dry Goods</p>
+                            <a class="btn btn-sm btn-outline-dark" href="/catalogue" role="button">View</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="card border-0">
+                    <img src="{{url_for('static', filename='catalogue2.png')}}" alt="Sauces" class="card-img-top">
+                    <div class="card-body">
+                        <div class="d-flex flex-column align-items-center">
+                            <p class="card-text lead fs-3 mt-2">Sauces</p>
+                            <a class="btn btn-sm btn-outline-dark" href="/catalogue" role="button">View</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="card border-0">
+                    <img src="{{url_for('static', filename='catalogue3.jpg')}}" alt="Seasoning" class="card-img-top">
+                    <div class="card-body">
+                        <div class="d-flex flex-column align-items-center">
+                            <p class="card-text lead fs-3 mt-2">Seasoning</p>
+                            <a class="btn btn-sm btn-outline-dark" href="/catalogue" role="button">View</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h3 class="text-center display-6 p-4" id="About">About Us</h3>
+    <hr class="border border-primary border-1 mb-4" style="width: 5%; margin: auto;">
+    <div class="container justify-content-center pb-5">
+        <p class="text-center lead">ABC Trading Supplies Pte Ltd is a wholesale grocer dedicated to providing small restaurants and food
+            stalls in Singapore with the supplies needed to get through a day's service. We offer 3 services
+            to customers which we believe will help them improve their workflow in the kitchen and focus more
+            on cooking, not worrying.</p>
+        <br>
+        <ol class="list-group list-group-numbered">
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                    <div class="fw-bold">Fast and hassle-free delivery</div>
+                    Your goods will be delivered to you as per your requested timing.
+                </div>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                    <div class="fw-bold">Packing of orders</div>
+                    We pack your goods up in boxes to make it easier for both you and us.
+                </div>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                    <div class="fw-bold">Order flexibility</div>
+                    Forgot to buy something? Change up your order anytime.
+                </div>
+            </li>
+        </ol>
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %} Login {% endblock title %}
+
+{% block content %}
+<div class="my-5">
+    <div class="container text-center">
+        <h1 class="display-6">Login</h1>
+    </div>
+</div>
+
+<hr class="border border-primary border-1 mb-5" style="width: 8%; margin: auto;">
+
+{% from "includes/_formHelper.html" import render_field %}
+<div class="container justify-content-center text-center">
+<form method="POST">
+    <div class="form-group my-4 lead">
+        {{ render_field(form.login_name, class="form-control") }}
+    </div>
+    <div class="form-group my-4 lead">
+        {{ render_field(form.login_pass, class="form-control") }}
+    </div>
+    {% if error %}
+    <p class="error my-4 lead text-danger mb-5"><strong>Error:</strong> {{ error }}
+        {% endif %}
+    <div class="form-group my-4 lead">
+        {{ form.login_submit(class="btn btn-primary my-4") }}
+    </div>
+</form>
+</div>
+{% endblock content %}
+
+{% block footer %}{% endblock footer %}
+</html>

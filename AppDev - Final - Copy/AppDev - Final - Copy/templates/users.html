@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block title %} Login {% endblock title %}
+
+{% block navbar %}
+<nav class="navbar navbar-expand-lg navbar-light shadow bg-white">
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbar1">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item active">
+                    <a class="nav-link lead fs-5 text-dark" href="/users">User List</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link lead fs-5 text-dark" href="/staffcatalogue">Staff Catalogue</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link lead fs-5 text-dark" href="/">Order List</a>
+                </li>
+            </ul>
+            <div class="d-flex align-items-center">
+                {% if logged %}
+                <a class="btn btn-link text-decoration-none text-dark" href="/profile/{{ name }}">Logged in as {{ name }}</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    </div>
+</nav>
+{% endblock navbar %}
+
+{% block content %}
+<!-- HEADING -->
+<div class="my-5">
+  <div class="container text-center">
+    <h1 class="display-6">Users</h1>
+  </div>
+</div>
+
+<hr class="border border-primary border-1 mb-5" style="width: 5%; margin: auto;">
+
+<!-- LIST OF ACCOUNTS -->
+<div>
+  <div class="container pb-5 mb-5">
+    <table class="table lead table-striped text-center" style="border: solid black 2px;">
+      <tr class="table-dark">
+        <th>Customer Name</th>
+        <th>Email Address</th>
+        <th>Shipping Location</th>
+      </tr>
+      {% for i in range(length) %}
+      <tr class="table-light">
+        <td>{{ database['name'][i] }}</td>
+        <td>{{ database['email'][i] }}</td>
+        <td>{{ database['location'][i] }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+</div>
+{% endblock content %}
+
+{% block footer %}{% endblock footer %}

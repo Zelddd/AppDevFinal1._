@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% block title %} Account Settings {% endblock title %}
+
+{% block content %}
+<div class="my-5">
+  <div class="container text-center">
+    <h1 class="display-6">User Profile</h1>
+  </div>
+</div>
+
+<hr class="border border-primary border-1 mb-5" style="width: 8%; margin: auto;">
+
+{% from "includes/_formHelper.html" import render_field %}
+<div class="container justify-content-center text-center">
+  <form method="POST">
+    <div class="row">
+      <div class="col-md-2"></div>
+      <div class="col-md-3">
+        {% if admin %}
+        <img src="{{ url_for('static', filename='usericon1.png') }}" class="img-fluid" alt="">
+        {% else %}
+        <img src="{{ url_for('static', filename='usericon2.png') }}" class="img-fluid" alt="">
+        {% endif %}
+      </div>
+      <div class="col-md-1"></div>
+      <div class="col-md-6">
+        <p class="display-6">{{ name }}</p>
+
+        <div class="form-group my-4 lead">
+          {{ render_field(form.profile_name, class="form-control", value=database['name'][i]) }}
+        </div>
+        <div class="form-group my-4 lead">
+          {{ render_field(form.profile_pass, class="form-control", value=database['password'][i]) }}
+        </div>
+        <div class="form-group my-4 lead">
+          {{ render_field(form.profile_Cpass, class="form-control") }}
+        </div>
+        {% if database['admin'][i] %}
+        <div class="form-group my-4 lead">
+          {{ render_field(form.profile_email, class="form-control-plaintext", value=database['email'][i], readonly=True, disabled=True) }}
+        </div>
+        <div class="form-group my-4 lead">
+          {{ render_field(form.profile_location, class="form-control-plaintext", value=database['location'][i], readonly=True, disabled=True) }}
+        </div>
+        {% else %}
+        <div class="form-group my-4 lead">
+          {{ render_field(form.profile_email, class="form-control", value=database['email'][i]) }}
+        </div>
+        <div class="form-group my-4 lead">
+          {{ render_field(form.profile_location, class="form-control", value=database['location'][i]) }}
+        </div>
+        {% endif %}
+      </div>
+    </div>
+    <div class="form-group my-4 lead">
+      {{ form.profile_submit(class="btn btn-primary") }}
+    </div>
+  </form>
+  <form method="POST">
+    <div>
+      {{ render_field(form2.logout_hidden, value="filler-text") }}
+    </div>
+    <div class="form-group my-4 lead">
+      {{ form2.logout_submit(class="btn btn-outline-danger") }}
+    </div>
+  </form>
+</div>
+</div>
+{% endblock content %}
+
+{% block footer %}{% endblock footer %}

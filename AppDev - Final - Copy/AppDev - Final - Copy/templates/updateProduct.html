@@ -1,0 +1,159 @@
+{% extends 'base.html' %}
+
+{% block title %} Update Product {% endblock title %}
+
+{% block navbar %}
+<nav class="navbar navbar-expand-lg navbar-light shadow bg-white">
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbar1">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item active">
+                    <a class="nav-link lead fs-5 text-dark" href="/">User List</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link lead fs-5 text-dark" href="/staffcatalogue">Staff Catalogue</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link lead fs-5 text-dark" href="/">Order List</a>
+                </li>
+            </ul>
+            <div class="d-flex align-items-center">
+                {% if logged %}
+                <a class="btn btn-link text-decoration-none text-dark" href="/{{ name }}">Logged in as {{ name }}</a>
+                {% endif %}
+                <!--Change into log out-->
+                <a class="btn btn-dark btn-sm text-light px-3" href="mailto:enquiries@abctrading.com" role="button">
+                    <i class="material-icons">&#xe158;</i>
+                </a>
+            </div>
+        </div>
+    </div>
+    </div>
+</nav>
+{% endblock navbar %}
+
+{% block content %}
+<div class="container-fluid text-center">
+    <h3 class="display-6 p-4">Update Product</h3>
+    <hr class="border border-primary border-1 mb-4" style="width: 5%; margin: auto;">
+</div>
+
+<div class="container" id="form-container">
+    <form class="row g-3" method="post" enctype="multipart/form-data" name="form" novalidate>
+        {{form.hidden_tag()}}
+        <div class="col-md-6">
+            <div class="mb-3">
+                {{form.product_name.label()}}
+
+                {% if form.product_name.errors %}
+
+                {{form.product_name(class="form-control is-invalid")}}
+                {% for error in form.product_name.errors %}
+                <div class="invalid-feedback">
+                    <span>{{error}}</span>
+                </div>
+                {% endfor %}
+                {% else %}
+                {{form.product_name(class="form-control")}}
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-md-3">
+            {{form.product_price.label()}}
+            <div class="input-group mb-3">
+                <span class="input-group-text">$</span>
+                {% if form.product_price.errors %}
+
+                {{form.product_price(class="form-control is-invalid")}}
+                {% for error in form.product_price.errors %}
+                <div class="invalid-feedback">
+                    <span>{{error}}</span>
+                </div>
+                {% endfor %}
+                {% else %}
+                {{form.product_price(class="form-control")}}
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-md-3">
+            {{form.product_weight.label()}}
+            <div class="input-group mb-3">
+
+                {% if form.product_weight.errors %}
+
+                {{form.product_weight(class="form-control is-invalid")}}
+                {% for error in form.product_weight.errors %}
+                <div class="invalid-feedback">
+                    <span>{{error}}</span>
+                </div>
+                {% endfor %}
+                {% else %}
+                {{form.product_weight(class="form-control")}}
+                <span class="input-group-text">g/kg/ml</span>
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="mb-3">
+                {{form.product_details.label()}}
+
+                {% if form.product_details.errors %}
+
+                {{form.product_details(class="form-control is-invalid")}}
+                {% for error in form.product_details.errors %}
+                <div class="invalid-feedback">
+                    <span>{{error}}</span>
+                </div>
+                {% endfor %}
+                {% else %}
+                {{form.product_details(class="form-control")}}
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="mb-3">
+                {{form.product_image.label()}}
+
+                {% if form.product_image.errors %}
+
+                {{form.product_image(class="form-control is-invalid")}}
+                {% for error in form.product_image.errors %}
+                <div class="invalid-feedback">
+                    <span>{{error}}</span>
+                </div>
+                {% endfor %}
+                {% else %}
+                {{form.product_image(class="form-control")}}
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="mb-3">
+                {{form.product_category.label()}}
+
+                {% if form.product_category.errors %}
+
+                {{form.product_category(class="form-control is-invalid")}}
+                {% for error in form.product_category.errors %}
+                <div class="invalid-feedback">
+                    <span>{{error}}</span>
+                </div>
+                {% endfor %}
+                {% else %}
+                {{form.product_category(class="form-select")}}
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-md-4 text-center pt-4">
+            <button type="button" class="btn btn-danger"><a href="/staffcatalogue"
+                    class="text-light text-decoration-none">Cancel</a></button>
+            {{form.submit(class="btn btn-primary")}}
+        </div>
+    </form>
+</div>
+{% endblock content %}
+
+{% block footer %} {% endblock footer %}

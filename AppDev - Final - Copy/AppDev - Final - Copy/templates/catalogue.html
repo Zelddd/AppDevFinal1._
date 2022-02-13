@@ -1,0 +1,155 @@
+{% extends 'base.html' %}
+{% block title %} Product Catalogue {% endblock title %}
+
+{% block head %}
+<script>
+    function lookup() {
+        var input, filter, content, block, i
+        input = document.getElementById('search');
+        filter = input.value.toUpperCase();
+        content = document.getElementsByClassName('card-title');
+        block = document.getElementsByClassName('block');
+
+        for (i = 0; i < content.length; i++) {
+            if (!content[i].innerHTML.toUpperCase().includes(filter)) {
+                block[i].style.display = "none";
+            } else {
+                block[i].style.display = "";
+            }
+        }
+    }
+
+    function select() {
+        var input, val, tags, text, block
+        input = document.getElementById('filter');
+        val = input.options[input.selectedIndex].text;
+        tags = document.getElementsByClassName('tag');
+        block = document.getElementsByClassName('block');
+
+        for (i = 0; i < tags.length; i++) {
+            text = tags[i].innerHTML
+            if (text == val) {
+                block[i].style.display = "";
+            } else if (val == "All") {
+                block[i].style.display = "";
+            } else {
+                block[i].style.display = "none";
+            }
+        }
+    }
+</script>
+<style>
+    img {
+        height: 400px;
+        width: 400px;
+        object-fit: contain;
+    }
+
+    #filter,
+    #search {
+        width: 250px;
+    }
+
+    #btnfilter,
+    #btnsearch {
+        width: 50px;
+    }
+</style>
+{% endblock head %}
+
+{% block navbar %}
+<nav class="navbar navbar-expand-lg navbar-light shadow bg-white">
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarExample01">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item active">
+                    <a class="nav-link lead fs-5 text-dark" aria-current="page" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link lead fs-5 text-dark" href="/catalogue">Catalogue</a>
+                </li>
+            </ul>
+            <div class="d-flex align-items-center">
+                {% if logged %}
+                <a class="btn btn-link text-decoration-none text-dark" href="/profile/{{ name }}">Logged in as {{ name }}</a>
+                {% else %}
+                <a href="/Login" class="text-dark btn text-decoration-none btn-link px-2 me-2" role="button">Login</a>
+                <a class="btn btn-outline-dark me-3" href="/signUp" role="button">Sign Up</a>
+                {% endif %}
+                {% if admin %}
+                <a class="btn btn-dark btn-sm text-light px-3 pt-2" href="/users" role="button">
+                    <i class="material-icons">&#xe8b8;</i>
+                </a>
+                {% else %}
+                <a class="btn btn-dark btn-sm text-light px-3" href="mailto:enquiries@abctrading.com" role="button">
+                    <i class="material-icons">&#xe158;</i>
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    </div>
+</nav>
+{% endblock navbar %}
+
+{% block content %}
+
+<div class="container-fluid text-center">
+    <h3 class="display-6 p-4">Product Catalogue</h3>
+    <hr class="border border-primary border-1 mb-4" style="width: 5%; margin: auto;">
+    <div class="input-group justify-content-center pt-2">
+        <div class="form-outline">
+            <input type="search" id="search" class="form-control" onkeyup="lookup()"
+                placeholder="Search for a product..." />
+        </div>
+        <button type="button" class="btn btn-dark" id="btnsearch">
+            <i class="fas fa-search"></i>
+        </button>
+    </div>
+    <div class="input-group justify-content-center pt-2">
+        <div class="form-outline">
+            <select class="form-control" name="filter" id="filter" onchange="select()">
+                <option disabled selected value="">Filter by category...</option>
+                <option value="1">Dry Goods</option>
+                <option value="2">Seasoning</option>
+                <option value="3">Sauces</option>
+                <option value="4">All</option>
+            </select>
+        </div>
+        <button type="button" class="btn btn-dark" id="btnfilter">
+            <i class="fas fa-angle-down"></i>
+        </button>
+    </div>
+</div>
+
+<div class="container pt-5">
+    <div class="row gx-5">
+        {% for info in datalist %}
+        <div class="col-lg-4 block">
+            <div class="card border-0">
+                <img src="{{url_for('static', filename=info.get_image())}}" alt="{{ info.get_name() }}"
+                    class="card-img-top">
+                <div class="card-body">
+                    <div class="d-flex flex-column align-items-center">
+                        <p class="card-title fw-bold">{{ info.get_name() }}</p>
+                        <p class="card-subtitle text-muted">SGD ${{ info.get_price() }}</p>
+                        <p class="card-text">Net Weight/Volume: {{ info.get_weight() }}</p>
+                        <p class="collapse" id="p{{ info.get_id() }}">{{ info.get_details() }}</p>
+                        <div class="btn-group">
+                            <button class="btn btn-outline-dark" data-bs-toggle="collapse"
+                                data-bs-target="#p{{ info.get_id() }}" type="button">Product Details</button>
+                            <a href="/cart/{{info.get_id()}}" class="btn btn-outline-dark" role="button">Add to Cart</a>
+                            <span class="tag" style="display: none;">{{ info.get_category() }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock content %}
